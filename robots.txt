@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://melodicsubtlety.com/sitemap.xml
