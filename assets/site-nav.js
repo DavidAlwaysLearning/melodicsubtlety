@@ -85,6 +85,93 @@
   menu.hidden = true;
   menu.appendChild(list);
 
+  /* Newest first. Domains are each repo's CNAME. The current site is a muted "You're here" row. */
+  var albums = [
+    { href: "https://lackadaisicalperfection.com/", title: "Lackadaisical Perfection", cover: "lackadaisical-perfection" },
+    { href: "https://pianoreveries.com/", title: "Piano Reveries and Phantasies", cover: "piano-reveries" },
+    { href: "https://smittenwiththemuses.com/", title: "Smitten with the Muses", cover: "smitten-with-the-muses" },
+    { href: "https://whereintheworldisdiane.com/", title: "Where In The World Is Diane", cover: "where-in-the-world-is-diane" },
+    { href: "https://cleancalmpiano.com/", title: "Clean Calm Piano", cover: "clean-calm-piano" },
+    { href: "https://tantalizingproof.com/", title: "Tantalizing Proof", cover: "tantalizing-proof" },
+    { href: "https://pianoincolors.com/", title: "Piano In Colors", cover: "piano-in-colors" },
+    { href: "https://melodicsubtlety.com/", title: "Melodic Subtlety – Solo Piano", cover: "melodic-subtlety" }
+  ];
+
+  function siteHost() {
+    var host = (location.hostname || "").replace(/^www\./i, "").toLowerCase();
+    var known = false;
+    for (var i = 0; i < albums.length; i++) {
+      if (albumHost(albums[i].href) === host) known = true;
+    }
+    if (known) return host;
+    return "melodicsubtlety.com";
+  }
+
+  function albumHost(href) {
+    try {
+      return new URL(href).hostname.replace(/^www\./i, "").toLowerCase();
+    } catch (err) {
+      return "";
+    }
+  }
+
+  var albumsWrap = document.createElement("div");
+  albumsWrap.className = "menu-albums";
+
+  var albumsLabel = document.createElement("p");
+  albumsLabel.className = "menu-albums-label";
+  albumsLabel.id = "menu-albums-label";
+  albumsLabel.textContent = "Albums";
+  albumsWrap.appendChild(albumsLabel);
+
+  var albumsList = document.createElement("ul");
+  albumsList.setAttribute("role", "list");
+  albumsList.setAttribute("aria-labelledby", "menu-albums-label");
+
+  var hereHost = siteHost();
+  albums.forEach(function (album) {
+    var item = document.createElement("li");
+    var here = albumHost(album.href) === hereHost;
+    var row = document.createElement(here ? "div" : "a");
+    if (here) {
+      row.className = "is-here";
+      row.setAttribute("aria-current", "page");
+    } else {
+      row.href = album.href;
+      row.target = "_blank";
+      row.rel = "noopener";
+    }
+
+    var thumb = document.createElement("img");
+    thumb.src = "/assets/albums/" + album.cover + ".jpg";
+    thumb.srcset = "/assets/albums/" + album.cover + ".jpg 1x, /assets/albums/" + album.cover + "@2x.jpg 2x";
+    thumb.width = 48;
+    thumb.height = 48;
+    thumb.alt = "";
+    thumb.decoding = "async";
+
+    var copy = document.createElement("span");
+    copy.className = "album-copy";
+    var title = document.createElement("span");
+    title.className = "album-title";
+    title.textContent = album.title;
+    copy.appendChild(title);
+    if (here) {
+      var note = document.createElement("span");
+      note.className = "here-note";
+      note.textContent = "You're here";
+      copy.appendChild(note);
+    }
+
+    row.appendChild(thumb);
+    row.appendChild(copy);
+    item.appendChild(row);
+    albumsList.appendChild(item);
+  });
+
+  albumsWrap.appendChild(albumsList);
+  menu.appendChild(albumsWrap);
+
   document.body.appendChild(button);
   document.body.appendChild(menu);
 
