@@ -3,7 +3,7 @@
 (function () {
   var pages = [
     { href: "/", label: "Album" },
-    { href: "https://music.apple.com/us/artist/david-rivera/1325691064", label: "Apple Music", blank: true },
+    { href: "https://music.apple.com/us/artist/david-rivera/1325691064?ls=1", label: "Apple Music", blank: true },
     { href: "https://open.spotify.com/artist/5qoC4NXvjfV3cylbXALzV3", label: "Spotify", blank: true },
     { href: "https://lackadaisicalperfection.com/scores/", label: "Scores", blank: true }
   ];
