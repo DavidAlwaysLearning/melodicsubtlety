@@ -54,6 +54,8 @@
     { href: "/", label: "Album" },
     { href: "https://music.apple.com/us/artist/david-rivera/1325691064?ls=1", label: "Apple Music", blank: true },
     { href: "https://open.spotify.com/artist/5qoC4NXvjfV3cylbXALzV3", label: "Spotify", blank: true },
+    { href: "https://www.facebook.com/pianoincolors", label: "Facebook", blank: true, ariaLabel: "David and his Piano on Facebook" },
+    { href: "https://www.instagram.com/pianodavid1492/", label: "Instagram", blank: true, ariaLabel: "David Rivera on Instagram" },
     { href: "https://lackadaisicalperfection.com/scores/", label: "Scores", blank: true }
   ];
 
@@ -123,6 +125,7 @@
       link.target = "_blank";
       link.rel = "noopener";
     }
+    if (page.ariaLabel) link.setAttribute("aria-label", page.ariaLabel);
     item.appendChild(link);
     list.appendChild(item);
   });
