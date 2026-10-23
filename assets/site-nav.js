@@ -56,7 +56,8 @@
     { href: "https://open.spotify.com/artist/5qoC4NXvjfV3cylbXALzV3", label: "Spotify", blank: true },
     { href: "https://www.facebook.com/pianoincolors", label: "Facebook", blank: true, ariaLabel: "David and his Piano on Facebook" },
     { href: "https://www.instagram.com/pianodavid1492/", label: "Instagram", blank: true, ariaLabel: "David Rivera on Instagram" },
-    { href: "https://lackadaisicalperfection.com/scores/", label: "Scores", blank: true }
+    { href: "https://lackadaisicalperfection.com/scores/", label: "Scores", blank: true },
+    { href: "https://lackadaisicalperfection.com/about/", label: "About", blank: true }
   ];
 
   function normalize(path) {
@@ -199,7 +200,7 @@
     thumb.srcset = "/assets/albums/" + album.cover + ".jpg 1x, /assets/albums/" + album.cover + "@2x.jpg 2x";
     thumb.width = 48;
     thumb.height = 48;
-    thumb.alt = "";
+    thumb.alt = album.title.split(" \u2013 ")[0].split(" – ")[0] + " album cover";
     thumb.decoding = "async";
 
     var copy = document.createElement("span");
