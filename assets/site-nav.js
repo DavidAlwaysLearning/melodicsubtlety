@@ -2,7 +2,7 @@
    Computers keep opening them in a new window. Runs on its own, before the menu code, and also catches
    links the menu adds later (checked again at tap time). */
 (function () {
-  var stores = ["open.spotify.com", "music.apple.com", "music.youtube.com", "soundcloud.com"];
+  var stores = ["open.spotify.com", "music.apple.com", "music.amazon.com", "music.youtube.com", "soundcloud.com"];
   var redirects = ["/spotify/", "/apple/", "/youtube-music/"];
   /* David's YouTube channel (not single videos): opens the app on phones like the stores. */
   var channels = ["/channel/ucdqz1e9ur4phyneylnmjdg", "/@melodicsubtlety", "/@relaxinginstrumentalvideos"];
@@ -116,7 +116,7 @@
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   }
 
-  var streaming = document.querySelectorAll('a[href*="music.apple.com"], a[href*="open.spotify.com"]');
+  var streaming = document.querySelectorAll('a[href*="music.apple.com"], a[href*="open.spotify.com"], a[href*="music.amazon.com"]');
   for (var i = 0; i < streaming.length; i++) {
     streaming[i].target = "_blank";
     streaming[i].rel = "noopener";
