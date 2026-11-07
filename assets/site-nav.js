@@ -75,42 +75,15 @@
   }, true);
 })();
 
-/* Site menu. Add a destination by appending one entry. The open menu lists every other destination.
-   Scores is the shared library for every album. Subscribe confirmation and thank-you pages are not destinations. */
+/* Site menu. Same destinations on every page: About, Scores, Subscribe, then the eight albums.
+   About, Scores, and Subscribe are the canonical Lackadaisical Perfection pages and open in a new tab.
+   The only page-specific mark is "You're here" on this album. */
 (function () {
   var pages = [
-    { href: "/", label: "Album" },
-    { href: "https://music.apple.com/us/artist/david-rivera/1325691064?ls=1", label: "Apple Music", blank: true },
-    { href: "https://open.spotify.com/artist/5qoC4NXvjfV3cylbXALzV3", label: "Spotify", blank: true },
-    { href: "https://www.facebook.com/pianoincolors", label: "Facebook", blank: true, ariaLabel: "David and his Piano on Facebook" },
-    { href: "https://www.instagram.com/pianodavid1492/", label: "Instagram", blank: true, ariaLabel: "David Rivera on Instagram" },
+    { href: "https://lackadaisicalperfection.com/about/", label: "About", blank: true },
     { href: "https://lackadaisicalperfection.com/scores/", label: "Scores", blank: true },
-    { href: "https://lackadaisicalperfection.com/about/", label: "About", blank: true }
+    { href: "https://lackadaisicalperfection.com/subscribe/", label: "Subscribe", blank: true }
   ];
-
-  function normalize(path) {
-    var p = path || "/";
-    var base = location.origin && location.origin !== "null"
-      ? location.origin
-      : "https://melodicsubtlety.com";
-    try {
-      p = new URL(p, base).pathname;
-    } catch (err) {
-      p = "/";
-    }
-    if (p === "/index.html" || p.slice(-11) === "/index.html") {
-      p = p.slice(0, -10);
-    }
-    if (p.charAt(p.length - 1) !== "/") p += "/";
-    return p;
-  }
-
-  function excluded(href) {
-    var path = normalize(href);
-    return path.indexOf("/confirmed") !== -1
-      || path.indexOf("/confirm") !== -1
-      || path.indexOf("/thank") !== -1;
-  }
 
   function reducedMotion() {
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -121,11 +94,6 @@
     streaming[i].target = "_blank";
     streaming[i].rel = "noopener";
   }
-
-  var here = normalize(location.pathname);
-  var links = pages.filter(function (page) {
-    return !excluded(page.href) && normalize(page.href) !== here;
-  });
 
   var button = document.createElement("button");
   button.type = "button";
@@ -145,7 +113,7 @@
 
   var list = document.createElement("ul");
   list.setAttribute("role", "list");
-  links.forEach(function (page) {
+  pages.forEach(function (page) {
     var item = document.createElement("li");
     var link = document.createElement("a");
     link.href = page.href;
@@ -175,7 +143,7 @@
     { href: "https://cleancalmpiano.com/", title: "Clean Calm Piano", cover: "clean-calm-piano" },
     { href: "https://tantalizingproof.com/", title: "Tantalizing Proof", cover: "tantalizing-proof" },
     { href: "https://pianoincolors.com/", title: "Piano In Colors", cover: "piano-in-colors" },
-    { href: "https://melodicsubtlety.com/", title: "Melodic Subtlety – Solo Piano", cover: "melodic-subtlety" }
+    { href: "https://melodicsubtlety.com/", title: "Melodic Subtlety", cover: "melodic-subtlety" }
   ];
 
   function siteHost() {
